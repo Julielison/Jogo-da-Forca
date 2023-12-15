@@ -1,2 +1,3 @@
 teste;1000;cabra trabalho
 teste1;2000;foto olho manchete
+foca;0;

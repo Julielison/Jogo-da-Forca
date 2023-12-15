@@ -1,15 +1,18 @@
-import lib
+from lib import *
 
 while True:
-    inicio_fim = input('1) Jogar\n2) Sair\n') # Opção: jogar ou sair
-    if inicio_fim == '2':
-        break
-    elif inicio_fim != '1':
-        print('Digite um valor válido')
+    if jogar():
+       break
+
+
+
+
+    while True:
+      apelido = input('Digite seu apelido sem (; e -): ')
+      if ';' in apelido or '-' in apelido:
+        print('Apelido inválido!')
         continue
-
-    apelido = input('Digite seu apelido sem ponto-e-vírgula: ')
-
+      break
     # Abre o arquivo de dados para leitura ou escrita
     consta = False
     with open('dados.txt', 'r+') as arquivo:
