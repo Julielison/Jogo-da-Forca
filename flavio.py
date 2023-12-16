@@ -1,11 +1,10 @@
-from lib import *
 import random #Biblioteca para pegar uma palvra aleatoria do banco de palavras
 
 #Função para jogar o jogo
 def jogar():
     print('Seja Bem vindo ao jogo da Forca! ')
 
-    palavra_secreta = carrega_palavra()
+    palavra_secreta = carregar_palavra_secreta()
 
 
     letras_acertadas = ['*' for letra in palavra_secreta]
@@ -30,12 +29,26 @@ def jogar():
         print('Você Perdeu!!!')
             
 
+#Função para carregas as palavras do banco de palavras e sortear a palavra secreta
+def carregar_palavra_secreta():
+    arquivo = open('banco_de_palavras.txt','r')
+    palavras = []
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+
+    arquivo.close()
+    numero = random.randrange(0, len(palavras))
+    palavra_secreta = palavras[numero]
+
+    return palavra_secreta
+
 #Funçâo para marcar o chute correto
-def marcar_chute_correto(palavra_secreta, chute, letras_acertadas):
+def marcar_chute_correto(palavra, chute, palavra_secreta):
     index = 0
-    for letra in palavra_secreta:
+    for letra in palavra:
         if chute == letra:
-            letras_acertadas[index] = letra
+            palavra_secreta[index] = letra
 
         index += 1
 

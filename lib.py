@@ -19,7 +19,7 @@ def verificar_apelido(apelido):
 
         return apelido, int(0),''
 
-def carrega_palavra(palavras_adv):
+def carrega_palavra_dica(palavras_adv):
     palavras_sorteadas = set()
     with open('banco_de_palavras.txt', 'r', encoding='utf-8') as arquivo:
         linhas = arquivo.readlines()
@@ -37,3 +37,15 @@ def esconde_letras(palavra):
         if letra != '-':
             palavra = palavra.replace(letra, '*')
     return palavra
+
+#Funçâo para marcar o chute correto
+def marcar_chute_correto(palavra, chute, palavra_secreta):
+    palavra_secreta_at = ''
+    index = 0
+    for letra in palavra:
+        if chute == letra:
+            palavra_secreta_at += letra
+        else:
+            palavra_secreta_at += palavra_secreta[index]
+        index += 1
+    return palavra_secreta_at
