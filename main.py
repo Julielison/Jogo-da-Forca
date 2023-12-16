@@ -1,30 +1,26 @@
 from lib import *
 
-while True:
-    if jogar():
-       break
-
-
-
+while jogar():
 
     while True:
-      apelido = input('Digite seu apelido sem (; e -): ')
+      apelido = input('Digite um apelido: ')
       if ';' in apelido or '-' in apelido:
-        print('Apelido inválido!')
-        continue
+          print('Apelido inválido! Não pode conter ; ou -')
+          continue
       break
-    # Abre o arquivo de dados para leitura ou escrita
-    consta = False
-    with open('dados.txt', 'r+') as arquivo:
-        for linha in arquivo:
-            dados = linha.split(';')
-            apelido_salvo = dados[0]
 
-            if apelido_salvo == apelido: # Verifica se o apelido consta no bando de dados
-                pontuação = int(dados[1])
-                p_adivinhadas = dados[2].split()
-                consta = True
-                break
-        if not consta:
-            arquivo.write(f'\n{apelido};0;') # grava o apelido no bando de dados caso não esteja
-    print(apelido)
+    # Retorna os dados do jogador
+    apelido, pontuação, palavras_adv = verificar_apelido(apelido)
+
+    while True:
+        palavra, dica = carrega_palavra(palavras_adv)
+
+        if palavra == None:
+            print('Você zerou o jogo!')
+            break
+
+        palavra_secreta = (esconde_letras(palavra))
+
+        print(f'Dica: {dica}')
+        print(palavra_secreta)
+        break

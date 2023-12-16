@@ -1,2 +1,12 @@
 tarefa;escola
 banco;dinheiro
+Elefante;Maior mamifero terrestre.
+Solar;Relacionado ao Sol ou a energia do Sol.
+Melodia;Sequência agradável de sons musicais.
+Inovação;Introducao de algo novo ou diferente.
+Aventura;Jornada emocionante e arriscada.
+Deslumbrante;Impressionante e fascinante.
+Radiante;Que emite luz ou energia de forma intensa.
+Serenidade;Estado de calma e tranquilidade.
+Efervescente;Que produz bolhas, geralmente usado para descrever bebidas.
+Perseverança;Persistência e determinação diante de desafios.
