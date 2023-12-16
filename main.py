@@ -9,11 +9,12 @@ while jogar():
       break
 
     # Retorna os dados do jogador
-    apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
 
     while True:
+        apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
         palavra, dica = carrega_palavra_dica(palavras_adv)
         if palavra == None:
+            atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
             print('Você zerou o jogo!')
             break
         palavra_secreta = esconde_letras(palavra)
@@ -38,9 +39,10 @@ while jogar():
                 acertou = True
                 break
         segue = input('Deseja continuar? (s/n) ').lower()
+        atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
+        
         if segue == 's':
             continue
         print(f'Sua pontuação até aqui: {pontuação}')
-        atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
         break
     break

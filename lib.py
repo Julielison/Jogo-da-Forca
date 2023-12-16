@@ -9,6 +9,7 @@ def jogar(): # Verifica se o usuário quer jogar ou sair
         jogar() # chama novamente a função
     return True # usuário digitou 1, o jogo começa
 
+
 # Retorna o histórico de dados do jogador se o apelido for encontrado na base de dados, se não, retorna os dados zerados
 def verificar_apelido(apelido):
     cont = 0
@@ -21,15 +22,18 @@ def verificar_apelido(apelido):
 
         return apelido, int(0),'',False
 
+
 def carrega_palavra_dica(palavras_adv):
     palavras_sorteadas = set()
+    #palavras_adv = palavras_adv.replace('\\n','')
     with open('banco_de_palavras.txt', 'r', encoding='utf-8') as arquivo:
         linhas = arquivo.readlines()
         
         while len(linhas) > len(palavras_sorteadas):
             palavra, dica = random.choice(linhas).strip().split(';')
-            palavras_sorteadas.add(palavra) 
-            if palavra in palavras_adv:
+            #palavra = palavra.replace('\\n','')
+            palavras_sorteadas.add(palavra)
+            if palavra.upper() in palavras_adv:
                 continue
             return palavra.upper(), dica
     return None, None
