@@ -44,6 +44,12 @@ def esconde_letras(palavra):
             palavra = palavra.replace(letra, '*')
     return palavra
 
+
+# Verifica se o chute foi válido ou não
+def chute_inválido(chute):
+    return len(chute) > 1
+
+
 #Funçâo para marcar o chute correto
 def marcar_chute_correto(palavra, chute, palavra_secreta):
     palavra_secreta_at = ''
@@ -55,6 +61,10 @@ def marcar_chute_correto(palavra, chute, palavra_secreta):
             palavra_secreta_at += palavra_secreta[index]
         index += 1
     return palavra_secreta_at
+
+def acertou(palavra_secreta):
+    return '*' not in palavra_secreta
+
 
 #Atualiza o arquivo de dados
 def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
@@ -69,3 +79,43 @@ def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
     else:
         with open('dados.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')
+
+
+def desenhar_boneco(erros):
+    if erros == 1:
+        print('┌────┐')
+        print('│   😐')
+        print('│')
+        print('│')
+        print('│')
+    elif erros == 2:
+        print('┌────┐')
+        print('│   😐')
+        print('│   ╱')
+        print('│')
+        print('│')
+    elif erros == 3:
+        print('┌────┐')
+        print('│   😐')
+        print('│   ╱░')
+        print('│')
+        print('│')
+    elif erros == 4:
+        print('┌────┐')
+        print('│   😐')
+        print('│   ╱░╲')
+        print('│')
+        print('│')
+    elif erros == 5:
+        print('┌────┐')
+        print('│   😐')
+        print('│   ╱░╲')
+        print('│   ╱')
+        print('│')
+    else:
+        print('┌────┐')
+        print('│   😐')
+        print('│   ╱░╲')
+        print('│   ╱ ╲')
+        print('│')
+        print('Você perdeu!')

@@ -1,3 +1,4 @@
 tarefa;escola
 banco;dinheiro
 Elefante;Maior mamifero terrestre.
+maça;fruta
