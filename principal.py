@@ -1,4 +1,4 @@
-from lib import *
+from biblioteca import *
 
 while jogar():
     while True:
@@ -9,34 +9,33 @@ while jogar():
       break
 
     # Retorna os dados do jogador
-    apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
-
     while True:
+        pontos = erros = 0 
+        apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
         palavra, dica = carrega_palavra_dica(palavras_adv)
         if palavra == None:
-            #atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
             print('Você zerou o jogo!')
             break
         palavra_secreta = esconde_letras(palavra)
 
-        erros = 0
-        
+        chutes = ''
         while erros < 6:
             print(f'Dica: {dica}')
             print(palavra_secreta)
             chute = input('Qual a letra? ').upper()
 
-            if chute_inválido(chute):
-                print('Digite apenas uma letra!')
+            if validar_chute(chute,chutes):
                 continue
+            chutes += chute
 
             if chute in palavra:
                 palavra_secreta = marcar_chute_correto(palavra, chute, palavra_secreta)
-                pontuação += 10
+                pontos += 10
                 if acertou(palavra_secreta):
                     print('Parabéns, você acertou!!!')
                     print(f'A palavra era {palavra}')
                     palavras_adv += f' {palavra}'
+                    pontuação += pontos
                     atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
                     break
             else:

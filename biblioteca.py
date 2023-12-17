@@ -1,54 +1,62 @@
 import random
 
-def jogar(): # Verifica se o usuário quer jogar ou sair
-    inicio_fim = input('1) Jogar\n2) Sair\n') # solicita um input do usuário
-    if inicio_fim == '2': # se for 2
-        return False # sai da função e do jogo
-    elif inicio_fim != '1': # se for diferente de 1
-        print('Digite 1 ou 2!') # exibe essa mensagem
-        jogar() # chama novamente a função
-    return True # usuário digitou 1, o jogo começa
+# Verifica se o arquivo está vazio ou não
+def arquivo_esta_vazio():
+    with open('dados.txt', 'r') as arquivo:
+        conteudo = arquivo.read()
+        return not conteudo
 
+# Menu jogar/sair e validar input
+def jogar():
+    inicio_fim = input('1) Jogar\n2) Sair\n')
+    if inicio_fim == '2':
+        return False
+    elif inicio_fim != '1':
+        print('Digite 1 ou 2!')
+        jogar()
+    return True
 
 # Retorna o histórico de dados do jogador se o apelido for encontrado na base de dados, se não, retorna os dados zerados
 def verificar_apelido(apelido):
     cont = 0
-    with open('dados.txt', 'r', encoding='utf-8') as arquivo: # abre o arquivo
-        for linha in arquivo: # var linha recebe o conteúdo de cada linha do arquivo
+    with open('dados.txt', 'r', encoding='utf-8') as arquivo:
+        for linha in arquivo:
             apelido_salvo, pontuação, palavras_adv = linha.split(';')
-            if apelido_salvo == apelido: # Verifica se o apelido consta no bando de dados
+            if apelido_salvo == apelido:
                 return apelido, int(pontuação), palavras_adv.upper().rstrip('\n'), cont
             cont += 1
+        return apelido, int(0),'',-1
 
-        return apelido, int(0),'',False
-
-
+# Carrega a palavra e a dica, se todas tiverem sido sortedas devolve None
 def carrega_palavra_dica(palavras_adv):
     palavras_sorteadas = set()
-    #palavras_adv = palavras_adv.replace('\\n','')
     with open('banco_de_palavras.txt', 'r', encoding='utf-8') as arquivo:
         linhas = arquivo.readlines()
         
         while len(linhas) > len(palavras_sorteadas):
             palavra, dica = random.choice(linhas).strip().split(';')
-            #palavra = palavra.replace('\\n','')
             palavras_sorteadas.add(palavra)
             if palavra.upper() in palavras_adv:
                 continue
             return palavra.upper(), dica
     return None, None
 
+# Troca cada letra da palavra por um *
 def esconde_letras(palavra):
     for letra in palavra:
         if letra != '-':
             palavra = palavra.replace(letra, '*')
     return palavra
 
-
-# Verifica se o chute foi válido ou não
-def chute_inválido(chute):
-    return len(chute) > 1
-
+# Verifica se o chute foi repetido ou é inválido
+def validar_chute(chute,chutes):
+    if len(chute) > 1:
+        print('Digite apenas uma letra!')
+        return True
+    elif chute in chutes:
+        print('Letra repetida! Digite outra!')
+        return True
+    return False
 
 #Funçâo para marcar o chute correto
 def marcar_chute_correto(palavra, chute, palavra_secreta):
@@ -62,24 +70,29 @@ def marcar_chute_correto(palavra, chute, palavra_secreta):
         index += 1
     return palavra_secreta_at
 
+# Verifica se a palavra foi adivinhada
 def acertou(palavra_secreta):
     return '*' not in palavra_secreta
 
-
 #Atualiza o arquivo de dados
 def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
-    palavras_adv_se = palavras_adv.lstrip()
-    if linha_jogador:
+    palavras_adv_se = palavras_adv.strip()
+    if linha_jogador >= 0:
         with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
             linhas = arquivo.readlines()
-            linhas[linha_jogador] = f'{apelido};{pontuação};{palavras_adv_se}\n'
+            linhas[linha_jogador] = f'{apelido};{pontuação};{palavras_adv_se}'
+            if linha_jogador != len(linhas) - 1:
+                linhas[linha_jogador] += '\n'
             arquivo.seek(0)
             arquivo.writelines(linhas)
     else:
         with open('dados.txt', 'a', encoding='utf-8') as arquivo:
-            arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')
+            if arquivo_esta_vazio():
+                arquivo.write(f'{apelido};{pontuação};{palavras_adv_se}')
+            else:
+                arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')
 
-
+# Desenha o boneco na forca
 def desenhar_boneco(erros):
     if erros == 1:
         print('┌────┐')
