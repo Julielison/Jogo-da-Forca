@@ -92,6 +92,17 @@ def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
             else:
                 arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')
 
+# Apaga os dados do jogador caso ele tenha zerado o jogo
+def apaga_jogador(linha_jogador):
+    with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
+        linhas = arquivo.readlines()
+        arquivo.seek(0)
+        if len(linhas) - 1 == linha_jogador:
+            linhas[linha_jogador-1] = linhas[linha_jogador-1].rstrip('\n')
+        del linhas[linha_jogador]
+        arquivo.writelines(linhas)
+        arquivo.truncate()
+
 # Desenha o boneco na forca
 def desenhar_boneco(erros):
     if erros == 1:

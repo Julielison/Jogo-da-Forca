@@ -1,4 +1,4 @@
-from biblioteca import *
+from lib import *
 
 while jogar():
     while True:
@@ -15,6 +15,7 @@ while jogar():
         palavra, dica = carrega_palavra_dica(palavras_adv)
         if palavra == None:
             print('Você zerou o jogo!')
+            apaga_jogador(linha_jogador)
             break
         palavra_secreta = esconde_letras(palavra)
 
