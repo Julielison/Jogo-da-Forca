@@ -17,7 +17,7 @@ def verificar_apelido(apelido):
         for linha in arquivo: # var linha recebe o conteúdo de cada linha do arquivo
             apelido_salvo, pontuação, palavras_adv = linha.split(';')
             if apelido_salvo == apelido: # Verifica se o apelido consta no bando de dados
-                return apelido, int(pontuação), palavras_adv.upper(), cont
+                return apelido, int(pontuação), palavras_adv.upper().rstrip('\n'), cont
             cont += 1
 
         return apelido, int(0),'',False
@@ -68,14 +68,13 @@ def acertou(palavra_secreta):
 
 #Atualiza o arquivo de dados
 def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
-    palavras_adv_se = palavras_adv.strip()
+    palavras_adv_se = palavras_adv.lstrip()
     if linha_jogador:
         with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
             linhas = arquivo.readlines()
-            linhas[linha_jogador] = f'{apelido};{pontuação};{palavras_adv_se}'
+            linhas[linha_jogador] = f'{apelido};{pontuação};{palavras_adv_se}\n'
             arquivo.seek(0)
             arquivo.writelines(linhas)
-            arquivo.truncate()
     else:
         with open('dados.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')

@@ -14,7 +14,7 @@ while jogar():
     while True:
         palavra, dica = carrega_palavra_dica(palavras_adv)
         if palavra == None:
-            atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
+            #atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
             print('Você zerou o jogo!')
             break
         palavra_secreta = esconde_letras(palavra)

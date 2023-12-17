@@ -1,8 +1,9 @@
 teste;1000;cabra trabalho
 teste1;2000;foto olho manchete
 jota;0;tarefa banco Elefante Solar Melodia Inovação Aventura Deslumbrante Radiante Serenidade Efervescente Perseverança
-n;210;ELEFANTE BANCO TAREFA
-novo;220;TAREFA BANCO ELEFANTE
+n;240;ELEFANTE BANCO TAREFA
+novo;590;TAREFA ELEFANTE MAÇA BANCO
 w;110;TAREFA ELEFANTE
 rota;190;MAÇA ELEFANTE BANCO TAREFA
 eu;190;ELEFANTE TAREFA BANCO MAÇA
+q;190;MAÇA BANCO ELEFANTE TAREFA
