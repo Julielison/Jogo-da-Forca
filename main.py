@@ -12,17 +12,17 @@ while jogar(): # Inicia ou sai do jogo
     while True: # Carrega os dados do jogador e da palavra
         pontos = erros = 0
         apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
-        palavra, dica = carrega_palavra_dica(palavras_adv)
+        palavra, dica, ultima = carrega_palavra_dica(palavras_adv)
 
         if palavra == None: # Verifica se o jogador zerou o jogo
-            print('Você zerou o jogo!')
-            print(f'Pontuação final: {pontuação}')
+            print('Dados inseridos manualmente!')
             apaga_jogador(linha_jogador) # apaga os dados do jogador
             break
 
         # Retorna a palavra com *
         palavra_secreta = esconde_letras(palavra)
         chutes = ''
+        apaga = False
 
         # Roda até que os erros cheguem a 6 ou a palavra seja acertada
         while erros < 6:
@@ -41,12 +41,17 @@ while jogar(): # Inicia ou sai do jogo
                     print(f'A palavra era {palavra}')
                     palavras_adv += f' {palavra}' # atualiza as palavras adivinhadas
                     pontuação += pontos
+                    apaga = True
                     atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
                     break
             else:
                 erros += 1
                 print(f'Você errou {erros} de 6 tentativas')
                 desenhar_boneco(erros)
+
+        # Verifica se o usuário zerou o jogo
+        if zerou_jogo(ultima,apaga,pontuação,linha_jogador):
+            break
 
         # Pergunta se o usuário quer seguir ou não
         segue = input('Deseja continuar? (s/n) ').lower()
