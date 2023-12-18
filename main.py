@@ -1,7 +1,7 @@
 from lib import * # importa do arquivo lib todas as funções
 
 while jogar(): # Inicia ou sai do jogo
-
+    print('Bem-vindo(a) ao Jogo da Forca')
     while True: # Valida o apelido
       apelido = input('Digite um apelido: ')
       if ';' in apelido or apelido == '':
@@ -10,17 +10,17 @@ while jogar(): # Inicia ou sai do jogo
       break
 
     while True: # Carrega os dados do jogador e da palavra
-        pontos = erros = 0
         apelido, pontuação, palavras_adv,linha_jogador = verificar_apelido(apelido)
         palavra, dica, ultima = carrega_palavra_dica(palavras_adv)
 
-        if palavra == None: # Verifica se o jogador zerou o jogo
+        if palavra == None: # Verifica se o jogador zerou o jogo sem jogar
             print('Dados inseridos manualmente!')
             apaga_jogador(linha_jogador) # apaga os dados do jogador
             break
 
         # Retorna a palavra com *
         palavra_secreta = esconde_letras(palavra)
+        pontos = erros = 0
         chutes = ''
         apaga = False
 
