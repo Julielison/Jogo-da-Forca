@@ -24,20 +24,22 @@ def verificar_apelido(apelido):
         return apelido.strip(), int(0),'',-1
 
 
-# Carrega a palavra e a dica. Se todas tiverem sido sorteadas, devolve None
+# Carrega a palavra, a dica e uma flag sinalizando se a última palavra foi sorteada
 def carrega_palavra_dica(palavras_adv):
-    palavras_sorteadas = set()
+    ultima = False
     with open('banco_de_palavras.txt', 'r', encoding='utf-8') as arquivo:
         linhas = arquivo.readlines()
+        qtd_palavras_adv = len(palavras_adv.split())
 
-        while len(linhas) > len(palavras_sorteadas):
+        while len(linhas) > qtd_palavras_adv:
             palavra, dica = random.choice(linhas).strip().split(';')
-            palavras_sorteadas.add(palavra)
             if palavra.upper() in palavras_adv:
                 continue
-            return palavra.upper(), dica
+            if len(linhas) == len(palavras_adv.split()) + 1:
+                ultima = True
+            return palavra.upper(), dica, ultima
 
-    return None, None
+    return None, None, ultima
 
 
 # Troca cada letra da palavra por um *
@@ -50,8 +52,8 @@ def esconde_letras(palavra):
 
 # Verifica se o chute foi repetido ou é inválido
 def validar_chute(chute,chutes):
-    if len(chute) > 1:
-        print('Digite apenas uma letra!')
+    if len(chute) > 1 or chute == '':
+        print('Chute inválido!')
         return True
     elif chute in chutes:
         print('Letra repetida! Digite outra!')
@@ -117,6 +119,17 @@ def apaga_jogador(linha_jogador):
         del linhas[linha_jogador]
         arquivo.writelines(linhas) # sobrescreve as linhas
         arquivo.truncate() # remove o que há depois da última linha escrita
+
+
+# Verifica se a última palavra sorteada foi acertada
+def zerou_jogo(ultima,apaga,pontuação,linha_jogador):
+    if ultima and apaga:
+        print('Parabéns! Você zerou o jogo!')
+        print(f'Pontuação final: {pontuação}')
+        apaga_jogador(linha_jogador)
+        print('Jogo encerrado!')
+        return True
+    return False
 
 
 # Desenha o boneco na forca
