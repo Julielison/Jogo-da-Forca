@@ -19,9 +19,9 @@ def verificar_apelido(apelido):
         for linha in arquivo:
             apelido_salvo, pontuação, palavras_adv = linha.split(';')
             if apelido_salvo == apelido:
-                return apelido, int(pontuação), palavras_adv.upper().rstrip('\n'), linha_jogador
+                return apelido.strip(), int(pontuação), palavras_adv.upper().rstrip('\n'), linha_jogador
             linha_jogador += 1
-        return apelido, int(0),'',-1
+        return apelido.strip(), int(0),'',-1
 
 
 # Carrega a palavra e a dica. Se todas tiverem sido sorteadas, devolve None
