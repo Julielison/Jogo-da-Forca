@@ -33,7 +33,7 @@ def carrega_palavra_dica(palavras_adv):
             palavra, dica = random.choice(linhas).strip().split(';')
             if palavra.upper() in palavras_adv:
                 continue
-            if qtd_palavras == len(palavras_adv.split()) + 1:
+            if qtd_palavras == len(palavras_adv.split('.')) + 1:
                 ultima = True
             return palavra.upper(), dica, ultima
 
@@ -41,6 +41,7 @@ def carrega_palavra_dica(palavras_adv):
 
 # Troca cada letra da palavra por um *
 def esconde_letras(palavra):
+    palavra = palavra.replace(' ','-')
     for letra in palavra:
         if letra != '-':
             palavra = palavra.replace(letra, '*')
@@ -80,7 +81,7 @@ def arquivo_esta_vazio():
 
 #Atualiza o arquivo de dados
 def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
-    palavras_adv_se = palavras_adv.strip()
+    palavras_adv_se = palavras_adv.strip('.')
 
     if linha_jogador >= 0: # excuta caso o jogador esteja no arquivo dados
         with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
@@ -99,7 +100,6 @@ def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
             else:
                 arquivo.write(f'\n{apelido};{pontuação};{palavras_adv_se}')
 
-# Julielison
 # Apaga os dados do jogador caso ele tenha zerado o jogo
 def apaga_jogador(linha_jogador):
     with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
