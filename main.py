@@ -2,7 +2,7 @@ from lib import * # importa do arquivo lib todas as funções
 
 while jogar(): # Inicia ou sai do jogo
     print('Bem-vindo(a) ao Jogo da Forca')
-    while True: # Valida o apelido
+    while True: # Pedir e validar o apelido
       apelido = input('Digite um apelido: ')
       if ';' in apelido or apelido == '':
           print('Apelido inválido! O apelido está vazio ou com ;')
@@ -22,11 +22,11 @@ while jogar(): # Inicia ou sai do jogo
         palavra_secreta = esconde_letras(palavra)
         pontos = erros = 0
         chutes = ''
-        apaga = False
+        acertada = False
 
         # Roda até que os erros cheguem a 6 ou a palavra seja acertada
         while erros < 6:
-            print(f'Dica: {dica}')
+            print(f'\nDica: {dica}')
             print(palavra_secreta)
             chute = input('Qual a letra? ').upper()
             if validar_chute(chute,chutes):
@@ -39,9 +39,10 @@ while jogar(): # Inicia ou sai do jogo
                 if acertou(palavra_secreta): # verifica se acertou a palavra
                     print('Parabéns, você acertou!!!')
                     print(f'A palavra era {palavra}')
-                    palavras_adv += f' {palavra}' # atualiza as palavras adivinhadas
+                    palavras_adv += f'.{palavra}' # atualiza as palavras adivinhadas
                     pontuação += pontos
-                    apaga = True
+                    print(f'Pontos acumulados: {pontuação}')
+                    acertada = True
                     atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador)
                     break
             else:
@@ -50,7 +51,7 @@ while jogar(): # Inicia ou sai do jogo
                 desenhar_boneco(erros)
 
         # Verifica se o usuário zerou o jogo
-        if zerou_jogo(ultima,apaga,pontuação,linha_jogador):
+        if zerou_jogo(ultima,acertada,pontuação,linha_jogador):
             break
 
         # Pergunta se o usuário quer seguir ou não
