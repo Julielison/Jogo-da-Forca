@@ -1,4 +1,6 @@
-tarefa;escola
-banco;dinheiro
-Elefante;Maior mamifero terrestre.
-maça;fruta
+venus;Planeta
+pizza;Comida
+futebol;Esporte
+cachoeira;Tem na natureza
+campina grande;Cidade
+redes de computadores;Curso
