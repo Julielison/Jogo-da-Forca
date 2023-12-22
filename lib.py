@@ -1,6 +1,5 @@
 import random
 
-# Flávio
 # Menu jogar/sair e validar input
 def jogar():
     inicio_fim = input('1) Jogar\n2) Sair\n')
@@ -11,7 +10,6 @@ def jogar():
         jogar()
     return True
 
-# Flávio
 # Retorna o histórico de dados do jogador se o apelido for encontrado na base de dados, se não, retorna os dados zerados
 def verificar_apelido(apelido):
     linha_jogador = 0
@@ -23,7 +21,6 @@ def verificar_apelido(apelido):
             linha_jogador += 1
         return apelido.strip(), int(0),'',-1
 
-# Julielison
 # Retorna a palavra, a dica e uma flag sinalizando se a última palavra foi sorteada
 def carrega_palavra_dica(palavras_adv):
     ultima = False
@@ -42,7 +39,6 @@ def carrega_palavra_dica(palavras_adv):
 
     return None, None, ultima
 
-# Bruzaca
 # Troca cada letra da palavra por um *
 def esconde_letras(palavra):
     for letra in palavra:
@@ -50,7 +46,6 @@ def esconde_letras(palavra):
             palavra = palavra.replace(letra, '*')
     return palavra
 
-# Luan
 # Verifica se o chute foi repetido ou é inválido
 def validar_chute(chute,chutes):
     if len(chute) > 1 or chute == '':
@@ -61,7 +56,6 @@ def validar_chute(chute,chutes):
         return True
     return False
 
-# Flávio
 #Funçâo para marcar o chute correto
 def marcar_chute_correto(palavra, chute, palavra_secreta):
     palavra_secreta_at = ''
@@ -74,19 +68,16 @@ def marcar_chute_correto(palavra, chute, palavra_secreta):
         index += 1
     return palavra_secreta_at
 
-# Bruzaca
 # Verifica se a palavra foi adivinhada
 def acertou(palavra_secreta):
     return '*' not in palavra_secreta
 
-# Luan
 # Verifica se o arquivo está vazio ou não
 def arquivo_esta_vazio():
     with open('dados.txt', 'r') as arquivo:
         conteudo = arquivo.read()
         return not conteudo
 
-# Julielison
 #Atualiza o arquivo de dados
 def atualiza_dados(apelido,pontuação,palavras_adv,linha_jogador):
     palavras_adv_se = palavras_adv.strip()
@@ -121,7 +112,6 @@ def apaga_jogador(linha_jogador):
         arquivo.writelines(linhas) # sobrescreve as linhas
         arquivo.truncate() # remove o que há depois da última linha escrita
 
-# Julielison
 # Verifica se a última palavra sorteada foi acertada
 def zerou_jogo(ultima,apaga,pontuação,linha_jogador):
     if ultima and apaga:
@@ -132,7 +122,6 @@ def zerou_jogo(ultima,apaga,pontuação,linha_jogador):
         return True
     return False
 
-# Flávio
 # Desenha o boneco na forca
 def desenhar_boneco(erros):
     if erros == 1:
